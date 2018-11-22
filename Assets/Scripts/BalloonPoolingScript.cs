@@ -24,6 +24,7 @@ public class BalloonPoolingScript : MonoBehaviour {
 		for(int i = 0; i < 4; i++){
 			GameObject obj = Instantiate(balloon);
 			obj.GetComponentInChildren<TextMesh>().text = (i+2).ToString();
+			obj.GetComponentInChildren<TextMesh>().transform.LookAt(Camera.main.transform);
 			Vector3 objPos = new Vector3(Random.Range(-1.4f, 1.4f), Random.Range(-0.5f, 0.6f), Random.Range(-0.9f, 1f));
 			obj.transform.parent = imageTarget;
 			obj.transform.localScale = balloon.transform.localScale;

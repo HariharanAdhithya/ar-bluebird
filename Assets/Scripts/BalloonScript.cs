@@ -26,20 +26,31 @@ public class BalloonScript : MonoBehaviour {
         PickRandomColor(false);
 	}
 
+	void onMouseDown()
+	{
+		System.Console.Write ("mouse down working");
+	}
+
 	
 	//Update is called once per frame
 	void Update () {
-        if(fadingIn && matColor.a < 1){
-            matColor.a += 0.01f;
-            material.color = matColor;
 
-            return;
-        }
+		this.GetComponentInChildren<TextMesh>().transform.LookAt(Camera.main.transform);
+		if (Input.GetMouseButtonDown (0)) {
+			System.Console.Write ("update mouse down");
+		}
 
-        fadingIn = false;
-        isPoppable = true;
-        
-        transform.localPosition = spawnPosition + (1+startup)*new Vector3(0.05f*Mathf.Sin(0.837f*Time.time + startup),0.1f*Mathf.Sin(Time.time + startup),0.023f*Mathf.Sin(0.776f*Time.time + startup));
+		//        if(fadingIn && matColor.a < 1){
+//            matColor.a += 0.01f;
+//            material.color = matColor;
+//
+//            return;
+//        }
+//
+//        fadingIn = false;
+//        isPoppable = true;
+//        
+//        transform.localPosition = spawnPosition + (1+startup)*new Vector3(0.05f*Mathf.Sin(0.837f*Time.time + startup),0.1f*Mathf.Sin(Time.time + startup),0.023f*Mathf.Sin(0.776f*Time.time + startup));
 		
 	}
 
