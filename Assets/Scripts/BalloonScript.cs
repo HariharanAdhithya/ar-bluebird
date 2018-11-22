@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BalloonScript : MonoBehaviour {
     private bool fadingIn;
@@ -11,7 +12,9 @@ public class BalloonScript : MonoBehaviour {
     Vector3 initialPosition;
 	Vector3 spawnPosition;
     float startup = 0;
-
+	int count;
+	public Text countText;
+	public Text winText;
 	// Use this for initialization
 	void Start () {
         spawnPosition = transform.localPosition;
@@ -146,7 +149,7 @@ public class BalloonScript : MonoBehaviour {
          GetComponent<Renderer>().enabled = false;
          
          yield return new WaitForSeconds(1.0f);
-         StartCoroutine(Respawn(Random.Range(1f, 3f)));
+         //StartCoroutine(Respawn(Random.Range(1f, 3f)));
  
      }
  
