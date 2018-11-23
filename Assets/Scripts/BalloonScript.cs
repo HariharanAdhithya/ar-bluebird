@@ -24,11 +24,13 @@ public class BalloonScript : MonoBehaviour {
         fadingIn = false;
         isPoppable = true;
         PickRandomColor(false);
+
 	}
 
 	void onMouseDown()
 	{
-		System.Console.Write ("mouse down working");
+        transform.GetChild(0).gameObject.SetActive(false);
+		// Pop(gameObject);
 	}
 
 	
@@ -36,9 +38,46 @@ public class BalloonScript : MonoBehaviour {
 	void Update () {
 
 		this.GetComponentInChildren<TextMesh>().transform.LookAt(Camera.main.transform);
-		if (Input.GetMouseButtonDown (0)) {
-			System.Console.Write ("update mouse down");
-		}
+	
+        // #if UNITY_EDITOR
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                // bg_label.SetActive(true);
+                // label.text = hit.transform.name.ToString();
+                // Pop(hit.collider.gameObject);
+                hit.collider.gameObject.SetActive(false);
+            }
+            else
+            {
+                // bg_label.SetActive(false);
+                // label.text = "";
+            }
+        }
+        // #elif UNITY_ANDROID
+        if ((Input.GetTouch(0).phase == TouchPhase.Stationary) || (Input.GetTouch(0).phase == TouchPhase.Moved && Input.GetTouch(0).deltaPosition.magnitude < 1.2f))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                // bg_label.SetActive(true);
+                // label.text = hit.transform.name.ToString();
+                // Pop();
+                // Pop(hit.collider.gameObject);
+                hit.collider.gameObject.SetActive(false);
+            }
+            else
+            {
+                // bg_label.SetActive(false);
+                // label.text = "";
+            }
+        }
+        // #endif
+
 
 		//        if(fadingIn && matColor.a < 1){
 //            matColor.a += 0.01f;
@@ -61,14 +100,14 @@ public class BalloonScript : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
         if(other.name.Equals("Bird")){
             transform.GetChild(0).gameObject.SetActive(false);
-            Pop();
+            // Pop(gameObject);
         }
        
     }
 
-    public void Pop(){
+    public void Pop(GameObject gameObject){
         isPoppable = false;
-        BirdControllerScript.main.ChangeTarget();
+        // BirdControllerScript.main.ChangeTarget();
         BalloonPoolingScript.main.RemoveBalloon(gameObject);
         StartCoroutine(SplitMesh());
     }
