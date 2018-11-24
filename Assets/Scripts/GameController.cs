@@ -17,7 +17,7 @@ public class GameController: MonoBehaviour
 	{
 		//Read questions from file and initialize
 	}
-		
+
 	public List<Question> l1Questions;
 	public List<Question> l2Questions;
 
@@ -34,6 +34,8 @@ public class GameController: MonoBehaviour
 		questions.Add(new Question("3 + 5", choices, "8", "select"));
 
 		startButton.onClick.AddListener(startButtonClicked);
+
+		questionResultMap = new Dictionary<Question, String> ();
 	}
 
 
@@ -52,15 +54,21 @@ public class GameController: MonoBehaviour
 
 		} else if (questions.Count != 0) {
 			changeScene ();
-			
+
 		} else if (questions.Count == 0 && questionResultMap.Count == QUESTION_COUNT) {
 			//Show the results and make adaptations to change to pervious questions
-
-
+			//Once the questions are loaded 
+			makeAdaptations();
 		} else {
 			//Check what case will come here
 		}
 
+	}
+
+	public void makeAdaptations()
+	{
+		//Change the questions based on previous results by looking at questions result map.
+		loadQuestions();
 	}
 
 	public void startButtonClicked()
@@ -83,7 +91,7 @@ public class GameController: MonoBehaviour
 
 	private void changeScene()
 	{
-		
+
 		//Start the questions scene
 		SceneManager.LoadSceneAsync("Main");
 	}
