@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class GameController: MonoBehaviour
@@ -9,6 +10,9 @@ public class GameController: MonoBehaviour
 	public static List<Question> questions;	
 	public static IDictionary<Question, String> questionResultMap;
 	public int QUESTION_COUNT = 1;
+
+	public Button startButton;
+
 	public GameController ()
 	{
 		//Read questions from file and initialize
@@ -19,13 +23,19 @@ public class GameController: MonoBehaviour
 
 	private void loadQuestions()
 	{
-		string ques, List<String> choices, string ans, string type
+		questions = new List<Question> ();
 		//Read some files and
-		List<String> questions = new Arra
-		questions.Add(new Question("3 + 5", ));
+		List<String> choices = new List<String>();
+		choices.Add ("8");
+		choices.Add ("10");
+		choices.Add ("9");
+		choices.Add ("11");
+
+		questions.Add(new Question("3 + 5", choices, "8", "select"));
+
+		startButton.onClick.AddListener(startButtonClicked);
 	}
 
-	
 
 	private void EnableStartBtn()
 	{
@@ -34,8 +44,12 @@ public class GameController: MonoBehaviour
 
 	void Start()
 	{
-		if (questions.Count == QUESTION_COUNT) {
+		if (questions == null) {
+			loadQuestions();
+		}
+		else if (questions.Count == QUESTION_COUNT) {
 			//Press start game to start	
+
 		} else if (questions.Count != 0) {
 			changeScene ();
 			
@@ -43,10 +57,8 @@ public class GameController: MonoBehaviour
 			//Show the results and make adaptations to change to pervious questions
 
 
-		} else if (questions.Count == 0) {
-			//Loaded for first time and load the questions.
 		} else {
-
+			//Check what case will come here
 		}
 
 	}
@@ -67,6 +79,7 @@ public class GameController: MonoBehaviour
 	{
 		questionResultMap.Add (question, result);
 	}
+
 
 	private void changeScene()
 	{
