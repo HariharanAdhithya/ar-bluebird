@@ -31,7 +31,10 @@ public class GameController: MonoBehaviour
 		choices.Add ("9");
 		choices.Add ("11");
 
-		questions.Add(new Question("3 + 5", choices, "8", "select"));
+		List<String> ans = new List<String>();
+		ans.Add ("8");
+
+		questions.Add(new Question("3 + 5", choices, ans , "A"));
 
 		startButton.onClick.AddListener(startButtonClicked);
 

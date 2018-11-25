@@ -8,7 +8,7 @@ public class Question
 {
 	public  String ques;
 	public List<String> choices;
-	public String ans;
+	public List<String> ans;
 	public String type;
 
 
@@ -16,7 +16,7 @@ public class Question
 	{
 	}
 
-	public Question (string ques, List<string> choices, string ans, string type)
+	public Question (String ques, List<String> choices, List<String> ans, String type)
 	{
 		this.ques = ques;
 		this.choices = choices;
@@ -25,7 +25,7 @@ public class Question
 	}
 	
 
-	public string Ques {
+	public String Ques {
 		get {
 			return this.ques;
 		}
@@ -37,7 +37,7 @@ public class Question
 		}
 	}
 
-	public string Ans {
+	public List<String> Ans {
 		get {
 			return this.ans;
 		}
