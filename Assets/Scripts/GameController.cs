@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 
 public class GameController: MonoBehaviour
@@ -12,6 +13,7 @@ public class GameController: MonoBehaviour
 	public int QUESTION_COUNT = 1;
 	public static int resultCount;
 	public Button startButton;
+	public static int level = 1;
 
 	public GameController ()
 	{
@@ -20,6 +22,7 @@ public class GameController: MonoBehaviour
 
 	public static List<Question> l1Questions;
 	public static List<Question> l2Questions;
+	public static List<Question> l3Questions;
 
 	private static void loadQuestions()
 	{
@@ -70,7 +73,54 @@ public class GameController: MonoBehaviour
 		ans2.Add ("-22");
 		l1Questions.Add(new Question("21-43", choices2, ans2 , "A"));
 
+		choices = new List<String>();
+		choices.Add ("-2");
+		choices.Add ("10");
+		choices.Add ("9");
+		choices.Add ("11");
+		ans = new List<String>();
+		ans.Add ("-2");
+		l1Questions.Add(new Question("3 - 5", choices, ans , "A"));
 
+		choices2 = new List<String>();
+		choices2.Add ("4");
+		choices2.Add ("5");
+		choices2.Add ("7");
+		choices2.Add ("11");
+		ans2 = new List<String>();
+		ans2.Add ("7");
+		l1Questions.Add(new Question("8 - 1", choices2, ans2 , "A"));
+
+		choices2 = new List<String>();
+		choices2.Add ("2");
+		choices2.Add ("5");
+		choices2.Add ("9");
+		choices2.Add ("12");
+		ans2 = new List<String>();
+		ans2.Add ("12");
+		l1Questions.Add(new Question("10 + 2", choices2, ans2 , "A"));
+
+		choices2 = new List<String>();
+		choices2.Add ("-1");
+		choices2.Add ("5");
+		choices2.Add ("9");
+		choices2.Add ("-11");
+		ans2 = new List<String>();
+		ans2.Add ("-11");
+		l1Questions.Add(new Question("0-11", choices2, ans2 , "A"));
+
+		choices2 = new List<String>();
+		choices2.Add ("2");
+		choices2.Add ("-22");
+		choices2.Add ("9");
+		choices2.Add ("8");
+		ans2 = new List<String>();
+		ans2.Add ("8");
+		l1Questions.Add(new Question("21-13", choices2, ans2 , "A"));
+		////////////////////////////////////////////////////////////////////
+		/// 
+		/// 
+		//Initialising Level 2
 		l2Questions = new List<Question> ();
 
 		choices = new List<String>();
@@ -122,13 +172,85 @@ public class GameController: MonoBehaviour
 		ans2.Add ("-20");
 		ans2.Add ("-2");
 		l2Questions.Add(new Question("Pop two = 21-43", choices2, ans2 , "B"));
+		////////////////////////////////////////////////////////////////////
+		/// 
+		/// 
+		//Initialising Level 3
+		l3Questions = new List<Question> ();
+
+		choices = new List<String>();
+		choices.Add ("6");
+		choices.Add ("2");
+		choices.Add ("13");
+		choices.Add ("11");
+		ans = new List<String>();
+		ans.Add ("13");
+		ans.Add ("2");
+		l3Questions.Add(new Question("Pop two = 3 * 5", choices, ans , "B"));
+
+		choices2 = new List<String>();
+		choices2.Add ("4");
+		choices2.Add ("2");
+		choices2.Add ("8");
+		choices2.Add ("11");
+		ans2 = new List<String>();
+		ans2.Add ("2");
+		ans2.Add ("8");
+		l3Questions.Add(new Question("Pop two = 10 / 1", choices2, ans2 , "B"));
+
+		choices2 = new List<String>();
+		choices2.Add ("0");
+		choices2.Add ("1");
+		choices2.Add ("6");
+		choices2.Add ("11");
+		ans2 = new List<String>();
+		ans2.Add ("0");
+		ans2.Add ("1");
+		l3Questions.Add(new Question("Pop two = 5/5", choices2, ans2 , "B"));
+
+		choices2 = new List<String>();
+		choices2.Add ("72");
+		choices2.Add ("-5");
+		choices2.Add ("74");
+		choices2.Add ("11");
+		ans2 = new List<String>();
+		ans2.Add ("72");
+		l3Questions.Add(new Question("9*8", choices2, ans2 , "A"));
+
+		choices2 = new List<String>();
+		choices2.Add ("50");
+		choices2.Add ("-3");
+		choices2.Add ("9");
+		choices2.Add ("-2");
+		ans2 = new List<String>();
+		ans2.Add ("50");
+		l3Questions.Add(new Question("10*5", choices2, ans2 , "A"));
+
+		System.Random rnd = new System.Random ();
 
 
-		if (resultCount >= 3) {
-			questions = l2Questions;	
+
+
+		if (level == 1)
+		{
+			if (resultCount >= 3) {
+				level += 1;
+				questions = l2Questions.OrderBy(x => rnd.Next(0,9)).Take(5).ToList();	
+			} else {
+				questions = l1Questions.OrderBy(x => rnd.Next(0,9)).Take(5).ToList();
+			}
+		}
+		else if(level == 2)
+		{
+			if (resultCount >= 3) {
+				level += 1;
+				questions = l3Questions.OrderBy(x => rnd.Next(0,9)).Take(5).ToList();
+			} else {
+				questions = l2Questions.OrderBy(x => rnd.Next(0,9)).Take(5).ToList();
+			}
 		}
 		else{
-			questions = l1Questions;
+			questions = l3Questions.OrderBy(x => rnd.Next(0,9)).Take(5).ToList();
 		}
 			
 

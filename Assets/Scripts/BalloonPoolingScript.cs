@@ -12,7 +12,7 @@ public class BalloonPoolingScript : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		main = this;
-		SpawnBalloons();
+		//SpawnBalloons();
 	}
 	
 	// Update is called once per frame

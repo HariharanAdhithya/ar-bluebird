@@ -24,7 +24,7 @@ public class BalloonScript : MonoBehaviour {
         matColor = material.color;
         fadingIn = false;
         isPoppable = true;
-        PickRandomColor(false);
+		PickRandomColor(true);
 
 	}
 
@@ -150,7 +150,7 @@ public class BalloonScript : MonoBehaviour {
 
      private void PickRandomColor(bool reduceAlphaToZero){
          Color color = BalloonPoolingScript.main.colorList[UnityEngine.Random.Range(0, BalloonPoolingScript.main.colorList.Count)];
-         color.a = (reduceAlphaToZero)? 0 : color.a;
+         //color.a = (reduceAlphaToZero)? 0 : color.a;
          matColor = color;
          material.color = matColor;
      }
