@@ -80,8 +80,6 @@ public class QuestionController : MonoBehaviour {
 
 		if (result == 1 || result == 2) {
 			GameController.addQuestionResult (Question, "" + result);
-			int y = SceneManager.GetActiveScene ().buildIndex;
-			SceneManager.UnloadSceneAsync(y);
 		}
 
 		return result;

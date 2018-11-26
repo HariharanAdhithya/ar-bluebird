@@ -30,7 +30,7 @@ public class BalloonScript : MonoBehaviour {
 
 	private void BalloonPop(String popValue)
 	{
-		QuestionController controller = GameObject.Find ("QuestionController").GetComponent<QuestionController> ();
+		QuestionController controller = GameObject.Find ("CustomizedBalloonPooler").GetComponent<QuestionController> ();
 		controller.addState (popValue);
 	}
 

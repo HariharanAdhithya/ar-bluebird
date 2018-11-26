@@ -30,11 +30,22 @@ public class GameController: MonoBehaviour
 		choices.Add ("10");
 		choices.Add ("9");
 		choices.Add ("11");
-
 		List<String> ans = new List<String>();
 		ans.Add ("8");
-
 		questions.Add(new Question("3 + 5", choices, ans , "A"));
+
+
+		List<String> choices2 = new List<String>();
+		choices2.Add ("4");
+		choices2.Add ("5");
+		choices2.Add ("9");
+		choices2.Add ("11");
+		List<String> ans2 = new List<String>();
+		ans2.Add ("4");
+		ans2.Add ("5");
+		questions.Add(new Question("Sum of two resulting 10 - 1", choices2, ans2 , "B"));
+
+
 
 		startButton.onClick.AddListener(startButtonClicked);
 
@@ -89,6 +100,13 @@ public class GameController: MonoBehaviour
 	public static void addQuestionResult(Question question, String result)
 	{
 		questionResultMap.Add (question, result);
+		if (questions.Count != 0) {
+			SceneManager.LoadSceneAsync ("Main");
+		} else {
+			SceneManager.LoadSceneAsync ("GameScene");
+		}
+
+		SceneManager.UnloadSceneAsync ("Main");
 	}
 
 
