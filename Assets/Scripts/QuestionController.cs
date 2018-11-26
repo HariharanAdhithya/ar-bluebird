@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class QuestionController : MonoBehaviour {
 
@@ -22,6 +23,9 @@ public class QuestionController : MonoBehaviour {
 	}
 
 	public void SpawnBalloons(){
+		GameObject obText = GameObject.Find ("Text");
+		obText.GetComponent<Text>().text = Question.ques;
+		obText.GetComponent<Text>().transform.LookAt(Camera.main.transform);
 		for(int i = 0; i < Question.choices.Count; i++){
 			GameObject obj = Instantiate(balloon);
 			obj.GetComponentInChildren<TextMesh>().text = Question.choices[i].ToString();
