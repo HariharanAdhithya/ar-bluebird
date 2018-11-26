@@ -24,7 +24,7 @@ public class LevelController : MonoBehaviour {
 	public void endButtonClicked()
 	{
 		SceneManager.LoadSceneAsync ("GameScene");
-		SceneManager.UnloadSceneAsync ("Main");
+		SceneManager.UnloadSceneAsync ("ResultScene");
 	}
 
 	public void levelButtonClicked()

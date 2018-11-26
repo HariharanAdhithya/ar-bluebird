@@ -23,8 +23,9 @@ public class GameController: MonoBehaviour
 
 	private void loadQuestions()
 	{
-		questions = new List<Question> ();
-		//Read some files and
+		//Initialising Level 1
+		l1Questions = new List<Question> ();
+
 		List<String> choices = new List<String>();
 		choices.Add ("8");
 		choices.Add ("10");
@@ -32,8 +33,7 @@ public class GameController: MonoBehaviour
 		choices.Add ("11");
 		List<String> ans = new List<String>();
 		ans.Add ("8");
-		questions.Add(new Question("3 + 5", choices, ans , "A"));
-
+		l1Questions.Add(new Question("3 + 5", choices, ans , "A"));
 
 		List<String> choices2 = new List<String>();
 		choices2.Add ("4");
@@ -41,12 +41,37 @@ public class GameController: MonoBehaviour
 		choices2.Add ("9");
 		choices2.Add ("11");
 		List<String> ans2 = new List<String>();
-		ans2.Add ("4");
-		ans2.Add ("5");
-		questions.Add(new Question("Sum of two resulting 10 - 1", choices2, ans2 , "B"));
+		ans2.Add ("9");
+		l1Questions.Add(new Question("10 - 1", choices2, ans2 , "A"));
 
+		choices2 = new List<String>();
+		choices2.Add ("2");
+		choices2.Add ("5");
+		choices2.Add ("9");
+		choices2.Add ("11");
+		ans2 = new List<String>();
+		ans2.Add ("2");
+		l1Questions.Add(new Question("5-3", choices2, ans2 , "A"));
 
+		choices2 = new List<String>();
+		choices2.Add ("-1");
+		choices2.Add ("5");
+		choices2.Add ("9");
+		choices2.Add ("11");
+		ans2 = new List<String>();
+		ans2.Add ("-1");
+		l1Questions.Add(new Question("0-1", choices2, ans2 , "A"));
 
+		choices2 = new List<String>();
+		choices2.Add ("2");
+		choices2.Add ("-22");
+		choices2.Add ("9");
+		choices2.Add ("11");
+		ans2 = new List<String>();
+		ans2.Add ("-22");
+		l1Questions.Add(new Question("21-43", choices2, ans2 , "A"));
+
+		questions = l1Questions;
 		startButton.onClick.AddListener(startButtonClicked);
 
 		questionResultMap = new Dictionary<Question, String> ();
