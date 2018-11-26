@@ -26,11 +26,13 @@ public class QuestionController : MonoBehaviour {
 		GameObject obText = GameObject.Find ("Text");
 		obText.GetComponent<Text>().text = Question.ques;
 		obText.GetComponent<Text>().transform.LookAt(Camera.main.transform);
+		float dist = -1.4f;
 		for(int i = 0; i < Question.choices.Count; i++){
 			GameObject obj = Instantiate(balloon);
 			obj.GetComponentInChildren<TextMesh>().text = Question.choices[i].ToString();
 			obj.GetComponentInChildren<TextMesh>().transform.LookAt(Camera.main.transform);
-			Vector3 objPos = new Vector3(UnityEngine.Random.Range(-1.4f, 1.4f),UnityEngine.Random.Range(-0.5f, 0.6f),UnityEngine.Random.Range(-0.9f, 1f));
+			Vector3 objPos = new Vector3(dist,0.6f,1f);
+			dist += 2f;
 			obj.transform.parent = imageTarget;
 			obj.transform.localScale = balloon.transform.localScale;
 			balloon.transform.localPosition = objPos;

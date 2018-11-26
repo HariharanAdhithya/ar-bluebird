@@ -14,6 +14,7 @@ public class LevelController : MonoBehaviour {
 		levelButton.onClick.AddListener(levelButtonClicked);
 		endButton.onClick.AddListener(endButtonClicked);
 		GameObject.Find("ScoreText").GetComponent<Text>().text = "Score: " + GameController.getScore();
+		GameController.resultCount = 0;
 	}
 	
 	// Update is called once per frame
@@ -29,5 +30,7 @@ public class LevelController : MonoBehaviour {
 
 	public void levelButtonClicked()
 	{
+		SceneManager.LoadSceneAsync ("Main");
+		SceneManager.UnloadSceneAsync ("ResultScene");
 	}
 }
