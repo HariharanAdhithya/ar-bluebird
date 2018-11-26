@@ -10,7 +10,7 @@ public class GameController: MonoBehaviour
 	public static List<Question> questions;	
 	public static IDictionary<Question, String> questionResultMap;
 	public int QUESTION_COUNT = 1;
-
+	public static int resultCount;
 	public Button startButton;
 
 	public GameController ()
@@ -60,6 +60,7 @@ public class GameController: MonoBehaviour
 
 	void Start()
 	{
+		resultCount = 0;
 		if (questions == null) {
 			loadQuestions();
 		}
@@ -97,13 +98,22 @@ public class GameController: MonoBehaviour
 		return question;
 	}
 
+	public static String getScore()
+	{
+		return resultCount.ToString ();
+	}
+
 	public static void addQuestionResult(Question question, String result)
 	{
 		questionResultMap.Add (question, result);
+		if (result.Equals ("1")) {
+			resultCount += 1;
+		}
+
 		if (questions.Count != 0) {
 			SceneManager.LoadSceneAsync ("Main");
 		} else {
-			SceneManager.LoadSceneAsync ("GameScene");
+			SceneManager.LoadSceneAsync ("ResultScene");
 		}
 
 		SceneManager.UnloadSceneAsync ("Main");
