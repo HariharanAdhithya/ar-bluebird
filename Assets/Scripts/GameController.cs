@@ -13,7 +13,10 @@ public class GameController: MonoBehaviour
 	public int QUESTION_COUNT = 1;
 	public static int resultCount;
 	public Button startButton;
-	public static int level = 1;
+	public static int level;
+
+	public InputField ageIP;
+	public static int age;
 
 	public GameController ()
 	{
@@ -229,8 +232,6 @@ public class GameController: MonoBehaviour
 		System.Random rnd = new System.Random ();
 
 
-
-
 		if (level == 1)
 		{
 			if (resultCount >= 3) {
@@ -251,6 +252,7 @@ public class GameController: MonoBehaviour
 		}
 		else{
 			questions = l3Questions.OrderBy(x => rnd.Next(0,9)).Take(5).ToList();
+			level = 4;
 		}
 			
 
@@ -266,9 +268,6 @@ public class GameController: MonoBehaviour
 	void Start()
 	{
 		resultCount = 0;
-		if (questions == null) {
-			loadQuestions();
-		}
 		startButton.onClick.AddListener(startButtonClicked);
 	}
 
@@ -280,7 +279,16 @@ public class GameController: MonoBehaviour
 
 	public void startButtonClicked()
 	{
-		changeScene ();	
+		changeScene ();
+		age = Int32.Parse(ageIP.text);
+		if (age < 7) {
+			level = 1;
+		} else if (age > 6 && age < 9) {
+			level = 2;
+		} else {
+			level = 3;
+		}
+		loadQuestions();
 	}
 
 	public static Question getQuestion()
