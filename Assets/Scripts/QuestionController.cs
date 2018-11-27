@@ -16,9 +16,13 @@ public class QuestionController : MonoBehaviour {
 	public List<GameObject> balloonList;
 	public List<Color> colorList;
 
+	public static float timer;
+
 	void Awake () {
 		Question = GameController.getQuestion ();
 		main = this;
+		timer = 10;
+		GameObject.Find ("Timer").GetComponent<Text> ().text = timer.ToString("F");
 		SpawnBalloons ();
 	}
 
@@ -26,13 +30,15 @@ public class QuestionController : MonoBehaviour {
 		GameObject obText = GameObject.Find ("Text");
 		obText.GetComponent<Text>().text = Question.ques;
 		obText.GetComponent<Text>().transform.LookAt(Camera.main.transform);
+
 		float dist = -1.4f;
 		for(int i = 0; i < Question.choices.Count; i++){
 			GameObject obj = Instantiate(balloon);
 			obj.GetComponentInChildren<TextMesh>().text = Question.choices[i].ToString();
 			obj.GetComponentInChildren<TextMesh>().transform.LookAt(Camera.main.transform);
+			obj.GetComponentInChildren<TextMesh>().transform.eulerAngles = new Vector3  ( 0, 180 , 0 );
 			Vector3 objPos = new Vector3(dist,0.6f,1f);
-			dist += 2f;
+			dist += 2.5f;
 			obj.transform.parent = imageTarget;
 			obj.transform.localScale = balloon.transform.localScale;
 			balloon.transform.localPosition = objPos;
@@ -44,12 +50,18 @@ public class QuestionController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+
+		if (timer > 0.0f) {
+			timer -= Time.deltaTime;
+			GameObject.Find ("Timer").GetComponent<Text> ().text = timer.ToString("F");
+		} else {
+				GameController.addQuestionResult (Question, "2");
+		}
+
 	}
 
 	public QuestionController()

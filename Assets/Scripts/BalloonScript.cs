@@ -100,6 +100,35 @@ public class BalloonScript : MonoBehaviour {
 		}
 		}
 
+		#elif UNITY_IOS
+
+		if ((Input.GetTouch(0).phase == TouchPhase.Stationary) || (Input.GetTouch(0).phase == TouchPhase.Moved && Input.GetTouch(0).deltaPosition.magnitude < 1.2f))
+		{
+		Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+		RaycastHit hit;
+		if (Physics.Raycast(ray, out hit))
+		{
+		// bg_label.SetActive(true);
+		// label.text = hit.transform.name.ToString();
+		// Pop();
+		// Pop(hit.collider.gameObject);
+		hit.collider.gameObject.SetActive(false);
+		//				gameObject.GetComponentsInChildren<TextMesh>()
+		if (gameObject == hit.collider.gameObject) {
+		Debug.Log("Test");
+		String number = gameObject.GetComponentInChildren<TextMesh> ().text;
+		BalloonPop (number);
+		}
+		//				Balloon ballon = hit.collider.gameObject
+
+		}
+		else
+		{
+		// bg_label.SetActive(false);
+		// label.text = "";
+		}
+		}
+
 
 		#endif
 
@@ -113,7 +142,7 @@ public class BalloonScript : MonoBehaviour {
 //        fadingIn = false;
 //        isPoppable = true;
 //        
-//        transform.localPosition = spawnPosition + (1+startup)*new Vector3(0.05f*Mathf.Sin(0.837f*Time.time + startup),0.1f*Mathf.Sin(Time.time + startup),0.023f*Mathf.Sin(0.776f*Time.time + startup));
+        transform.localPosition = spawnPosition + (1+startup)*new Vector3(0.05f*Mathf.Sin(0.837f*Time.time + startup),0.1f*Mathf.Sin(Time.time + startup),0.023f*Mathf.Sin(0.776f*Time.time + startup));
 		
 	}
 
@@ -124,16 +153,19 @@ public class BalloonScript : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
         if(other.name.Equals("Bird")){
             transform.GetChild(0).gameObject.SetActive(false);
-            // Pop(gameObject);
+            Pop(gameObject);
         }
        
     }
 
     public void Pop(GameObject gameObject){
         isPoppable = false;
-        // BirdControllerScript.main.ChangeTarget();
+        BirdControllerScript.main.ChangeTarget();
+		String number = gameObject.GetComponentInChildren<TextMesh> ().text;
+		BalloonPop (number);
         BalloonPoolingScript.main.RemoveBalloon(gameObject);
         StartCoroutine(SplitMesh());
+
     }
 
      private IEnumerator Respawn(float t){
