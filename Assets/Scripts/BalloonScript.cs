@@ -30,10 +30,25 @@ public class BalloonScript : MonoBehaviour {
 
 	private void BalloonPop(String popValue)
 	{
+		print ("ballon pop called..." + popValue);
+
 		QuestionController controller = GameObject.Find ("CustomizedBalloonPooler").GetComponent<QuestionController> ();
 		controller.addState (popValue);
 	}
 
+	private void BalloonPopPhone(GameObject gameObject)
+	{
+
+		print ("ballon pop  phone called..." );
+
+		gameObject.SetActive(false);
+		String popValue = gameObject.GetComponentInChildren<TextMesh> ().text;
+
+		print ("pop value : "+ popValue);
+
+		QuestionController controller = GameObject.Find ("CustomizedBalloonPooler").GetComponent<QuestionController> ();
+		controller.addState (popValue);
+	}
 	void onMouseDown()
 	{
         transform.GetChild(0).gameObject.SetActive(false);
@@ -43,7 +58,7 @@ public class BalloonScript : MonoBehaviour {
 	
 	//Update is called once per frame
 	void Update () {
-
+		print ("balloon update .....");
 		this.GetComponentInChildren<TextMesh>().transform.LookAt(Camera.main.transform);
 	
 		#if UNITY_EDITOR
@@ -73,8 +88,9 @@ public class BalloonScript : MonoBehaviour {
 		}
 		#elif UNITY_ANDROID
 
-		if ((Input.GetTouch(0).phase == TouchPhase.Stationary) || (Input.GetTouch(0).phase == TouchPhase.Moved && Input.GetTouch(0).deltaPosition.magnitude < 1.2f))
+		if (((Input.GetTouch(0).phase == TouchPhase.Stationary) || (Input.GetTouch(0).phase == TouchPhase.Moved && Input.GetTouch(0).deltaPosition.magnitude < 1.2f)))
 		{
+		print("touch event called ...");
 		Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
 		RaycastHit hit;
 		if (Physics.Raycast(ray, out hit))
@@ -83,13 +99,17 @@ public class BalloonScript : MonoBehaviour {
 		// label.text = hit.transform.name.ToString();
 		// Pop();
 		// Pop(hit.collider.gameObject);
-		hit.collider.gameObject.SetActive(false);
+		BalloonPopPhone(hit.collider.gameObject);
+		print("android Ballon disabled");
 		//				gameObject.GetComponentsInChildren<TextMesh>()
-		if (gameObject == hit.collider.gameObject) {
-		Debug.Log("Test");
-		String number = gameObject.GetComponentInChildren<TextMesh> ().text;
-		BalloonPop (number);
-		}
+//		if (gameObject == hit.collider.gameObject) {
+//		Debug.Log("Test");
+//		print("instance for hit game object");
+//		String number = game Object.GetComponentInChildren<TextMesh> ().text;
+//		print("Selected Game object number:"+ number);
+		//BalloonPop (number);
+
+//		}
 		//				Balloon ballon = hit.collider.gameObject
 
 		}
@@ -142,7 +162,7 @@ public class BalloonScript : MonoBehaviour {
 //        fadingIn = false;
 //        isPoppable = true;
 //        
-        transform.localPosition = spawnPosition + (1+startup)*new Vector3(0.05f*Mathf.Sin(0.837f*Time.time + startup),0.1f*Mathf.Sin(Time.time + startup),0.023f*Mathf.Sin(0.776f*Time.time + startup));
+       // transform.localPosition = spawnPosition + (1+startup)*new Vector3(0.05f*Mathf.Sin(0.837f*Time.time + startup),0.1f*Mathf.Sin(Time.time + startup),0.023f*Mathf.Sin(0.776f*Time.time + startup));
 		
 	}
 
