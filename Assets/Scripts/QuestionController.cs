@@ -20,8 +20,8 @@ public class QuestionController : MonoBehaviour {
 
 	void Awake () {
 		Question = GameController.getQuestion ();
+		timer = GameController.getTimer ();
 		main = this;
-		timer = 10;
 		GameObject.Find ("Timer").GetComponent<Text> ().text = timer.ToString("F");
 		SpawnBalloons ();
 	}

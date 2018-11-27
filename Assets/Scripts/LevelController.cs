@@ -13,7 +13,7 @@ public class LevelController : MonoBehaviour {
 	void Start () {
 		levelButton.onClick.AddListener(levelButtonClicked);
 		endButton.onClick.AddListener(endButtonClicked);
-		GameObject.Find("NextText").GetComponent<Text>().text = System.Int32.Parse(GameController.getScore()) >= 3 ? "Vera level" : "Try again";
+		GameObject.Find("NextText").GetComponent<Text>().text = System.Int32.Parse(GameController.getScore()) >= 3 ? "Next level" : "Try again";
 
 		if (GameController.level == 4 && System.Int32.Parse (GameController.getScore ()) >= 3) {
 			GameObject.Find("NextLevel").SetActive(false);
